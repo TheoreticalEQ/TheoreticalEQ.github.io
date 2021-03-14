@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-color: linen;
+}
+
+h1 {
+  color: maroon;
+  margin-left: 40px;
+}
+#myElement {
+  background: silver;
+  height: 300px;
+  text-align: center;
+  font: 30px/300px Helvetica, Arial, sans-serif;
+}
+</style>
+<script src="https://hammerjs.github.io/dist/hammer.js"></script>
+</head>
+<body>
+
+<h1>This is a heading</h1>
+<p>This is a paragraph.</p>
+<img id="myImage" src="generated-photos/image (0).png">
+<p id="photograph"></p>
+<p>Name</p>
+<p>Age</p>
+<div id="clickTest"></div>
+<div id="mouseMove"></div>
+<div id="swipeDirection"></div>
+<!-- <div id="myElement"></div> -->
+
+
+
+
+
+<button onclick="downClick()">Down</button>
+<button onclick="upClick()">Up</button>
+<script>
+function downClick() {
+  document.getElementById('swipeDirection').innerHTML='Swipe Down!'
+  changeProfileImage()
+}
+
+function upClick() {
+  document.getElementById('swipeDirection').innerHTML='Swipe Up!'
+  changeProfileImage()
+}
+
+document.addEventListener('keydown', function(e) {
+    switch (e.keyCode) {
+        case 38:
+           // alert('up');
+           // document.getElementById('myImage').src='generated-photos/image (2).png'
+           document.getElementById('swipeDirection').innerHTML='Swipe Up!'
+           changeProfileImage()
+            break;
+        case 40:
+            // alert('down');
+            // document.getElementById('myImage').src='generated-photos/image (1).png'
+            document.getElementById('swipeDirection').innerHTML='Swipe Down!'
+            changeProfileImage()
+            break;
+    }
+});
+
+function changeProfileImage() {
+  var age = Math.floor(Math.random() * Math.floor(10));
+  var imageName = 'generated-photos/image (' + String(age) + ').png'
+  document.getElementById("photograph").innerHTML = imageName;
+  document.getElementById("myImage").src = 'generated-photos/image (' + String(age) + ').png';
+}
+
+var myElement = document.getElementById('myImage');
+
+// create a simple instance
+// by default, it only adds horizontal recognizers
+var mc = new Hammer(myElement);
+
+// let the pan gesture support all directions.
+// this will block the vertical scrolling on a touch-device while on the element
+mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+var swipeDown = 0;
+var swipeUp = 0;
+// listen to events...
+
+mc.on("swipeup", function(ev) {
+  console.log('swipeup triggered');
+  swipeUp = swipeUp + 1;
+  console.log("swipeUp: " + swipeUp);
+  changeProfileImage()
+  document.getElementById('swipeDirection').innerHTML='Swipe Up!'
+});
+mc.on("swipedown", function(ev) {
+  console.log('swipedown triggered');
+  swipeDown = swipeDown + 1;
+  console.log("swipeDown: " + swipeDown);
+  changeProfileImage()
+  document.getElementById('swipeDirection').innerHTML='Swipe Down!'
+});
+
+
+</script>
+</body>
+</html>
