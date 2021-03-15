@@ -3,27 +3,106 @@
 <head>
 <style>
 body {
-  background-color: linen;
+  background-color: white;
 }
 
-h1 {
-  color: maroon;
-  margin-left: 40px;
-}
-#myElement {
-  background: silver;
-  height: 300px;
+p {
   text-align: center;
-  font: 30px/300px Helvetica, Arial, sans-serif;
+}
+h1 {
+  text-align: center;
+  color: maroon;
+}
+#swipeDirection {
+  text-align: center;
+}
+.imageAndMask {
+
+  text-align: center;
+}
+#myImage {
+  /* display: block;*/
+  display: inline;
+  position: relative;
+
+  width: 50%;
+  height: auto;
+
+  top: 0;
+  left: 0;
+}
+
+#moveMask {
+
+  width: 13%;
+  height: auto;
+  position: absolute;
+  /*
+  below nose*/
+  top: 515px;
+  left: 537px;
+  display: inline;
+
+  /* correct placement
+  top: 475px;
+  display: inline;*/
+  /* gone
+  display: none;
+*/
+
+}
+
+.tinder--buttons {
+  text-align: center;
+}
+
+.tinder--buttons {
+  flex: 0 0 5px;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.tinder--buttons button {
+  border-radius: 50%;
+  line-height: 60px;
+  width: 60px;
+  border: 0;
+  background: #FFFFFF;
+  display: inline-block;
+  margin: 0 8px;
+}
+
+.tinder--buttons button:focus {
+  outline: 0;
+}
+
+.tinder--buttons i {
+  font-size: 32px;
+  vertical-align: middle;
+}
+
+.fa-head-side-cough {
+  color: green;
+}
+
+.fa-head-side-mask {
+  color: red;
+}
+.fa-box-tissue {
+  color: blue;
 }
 </style>
 <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+<script src="https://kit.fontawesome.com/2f9c919c13.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<h1>This is a heading</h1>
-<p>This is a paragraph.</p>
-<img id="myImage" src="generated-photos/image (0).png">
+<h1>Dating Unmasked</h1>
+<p>The #1 Viral Dating App!</p>
+<div class = "imageAndMask">
+  <img id="myImage" src="generated-photos/image (0).png">
+  <img id="moveMask" src="mask5.png">
+</div>
 <p id="photograph"></p>
 <p>Name</p>
 <p>Age</p>
@@ -35,34 +114,65 @@ h1 {
 
 
 
-
+<!--
 <button onclick="downClick()">Down</button>
 <button onclick="upClick()">Up</button>
+-->
+
+<div class="tinder--buttons">
+  <button onclick="downClick()" id="unmask"><i class="fas fa-head-side-cough"></i></button>
+</div>
+<div class="tinder--buttons">
+  <button onclick="underNose()" id="tissues"><i class="fas fa-box-tissue"></i></button>
+  <button onclick="upClick()"id="mask"><i class="fas fa-head-side-mask fa-flip-horizontal"></i></button>
+
+</div>
+
 <script>
+function underNose() {
+
+  document.getElementById("moveMask").style.display = 'inline';
+  document.getElementById("moveMask").style.top = '515px';
+}
 function downClick() {
   document.getElementById('swipeDirection').innerHTML='Swipe Down!'
-  changeProfileImage()
+  document.getElementById("moveMask").style.display = 'none';
+  // changeProfileImage()
 }
 
 function upClick() {
   document.getElementById('swipeDirection').innerHTML='Swipe Up!'
-  changeProfileImage()
+  document.getElementById("moveMask").style.display = 'inline';
+  document.getElementById("moveMask").style.top = '475px';
+  // changeProfileImage()
 }
 
 document.addEventListener('keydown', function(e) {
     switch (e.keyCode) {
+
         case 38:
            // alert('up');
            // document.getElementById('myImage').src='generated-photos/image (2).png'
            document.getElementById('swipeDirection').innerHTML='Swipe Up!'
-           changeProfileImage()
+           upClick()
+           //changeProfileImage()
             break;
         case 40:
             // alert('down');
             // document.getElementById('myImage').src='generated-photos/image (1).png'
             document.getElementById('swipeDirection').innerHTML='Swipe Down!'
+            underNose()
+            //changeProfileImage()
+            break;
+        case 37:
+            document.getElementById('swipeDirection').innerHTML='Left!'
             changeProfileImage()
             break;
+        case 39:
+            document.getElementById('swipeDirection').innerHTML='Right!'
+            changeProfileImage()
+            break;
+
     }
 });
 
@@ -71,6 +181,9 @@ function changeProfileImage() {
   var imageName = 'generated-photos/image (' + String(age) + ').png'
   document.getElementById("photograph").innerHTML = imageName;
   document.getElementById("myImage").src = 'generated-photos/image (' + String(age) + ').png';
+
+  document.getElementById("moveMask").style.display = 'inline';
+  document.getElementById("moveMask").style.top = '520px';
 }
 
 var myElement = document.getElementById('myImage');
@@ -85,20 +198,30 @@ mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 var swipeDown = 0;
 var swipeUp = 0;
 // listen to events...
-
+mc.on("swipeleft", function(ev) {
+  changeProfileImage()
+});
+mc.on("swiperight", function(ev) {
+  changeProfileImage()
+});
 mc.on("swipeup", function(ev) {
   console.log('swipeup triggered');
   swipeUp = swipeUp + 1;
   console.log("swipeUp: " + swipeUp);
-  changeProfileImage()
+  //changeProfileImage()
+  document.getElementById("moveMask").style.display = 'inline';
+  document.getElementById("moveMask").style.top = '475px';
   document.getElementById('swipeDirection').innerHTML='Swipe Up!'
 });
 mc.on("swipedown", function(ev) {
   console.log('swipedown triggered');
   swipeDown = swipeDown + 1;
   console.log("swipeDown: " + swipeDown);
-  changeProfileImage()
-  document.getElementById('swipeDirection').innerHTML='Swipe Down!'
+  document.getElementById("moveMask").style.display = 'inline';
+  document.getElementById("moveMask").style.top = '515px';
+  //changeProfileImage()
+  //document.getElementById("moveMask").style.display = 'none';
+  //document.getElementById('swipeDirection').innerHTML='Swipe Down!'
 });
 
 
