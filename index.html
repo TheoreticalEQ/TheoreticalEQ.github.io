@@ -1,266 +1,126 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-body {
-  background-color: white;
-}
-
-p {
-  text-align: center;
-}
-h1 {
-  text-align: center;
-  color: maroon;
-}
-#swipeDirection {
-  text-align: center;
-}
-#pinchOutStatus {
-  text-align: center;
-}
-#pinchInStatus {
-  text-align: center;
-}
-#pinchStatus {
-  text-align: center;
-}
-.imageAndMask {
-
-  text-align: center;
-}
-#myImage {
-  /* display: block;*/
-  display: inline;
-  position: relative;
-
-  width: 50%;
-  height: auto;
-
-  top: 0;
-  left: 0;
-}
-
-#moveMask {
-
-  width: 13%;
-  height: auto;
-  position: absolute;
-  /*
-  below nose*/
-  top: 515px;
-  left: 537px;
-  display: inline;
-
-  /* correct placement
-  top: 475px;
-  display: inline;*/
-  /* gone
-  display: none;
-*/
-
-}
-
-.tinder--buttons {
-  text-align: center;
-}
-
-.tinder--buttons {
-  flex: 0 0 5px;
-  text-align: center;
-  padding-top: 20px;
-}
-
-.tinder--buttons button {
-  border-radius: 50%;
-  line-height: 60px;
-  width: 60px;
-  border: 0;
-  background: #FFFFFF;
-  display: inline-block;
-  margin: 0 8px;
-}
-
-.tinder--buttons button:focus {
-  outline: 0;
-}
-
-.tinder--buttons i {
-  font-size: 32px;
-  vertical-align: middle;
-}
-
-.fa-head-side-cough {
-  color: green;
-}
-
-.fa-head-side-mask {
-  color: red;
-}
-.fa-box-tissue {
-  color: blue;
-}
-</style>
-<script src="https://hammerjs.github.io/dist/hammer.js"></script>
-<script src="https://kit.fontawesome.com/2f9c919c13.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+  <script src="https://kit.fontawesome.com/2f9c919c13.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<h1>Dating Unmasked</h1>
-<p>The #1 Viral Dating App!</p>
-<div class = "imageAndMask">
-  <img id="myImage" src="generated-photos/image (0).png">
-  <img id="moveMask" src="mask5.png">
+<div class="tbg">
+  <div class="theader">
+    <i class="fa fa-cog" aria-hidden="true"></i>
+    <i class="fa fa-comments" aria-hidden="true"></i>
+    <div class="tlogo">
+      <img src="https://worldvectorlogo.com/logos/tinder-1.svg" alt="Tinder Logo" title="Tinder Logo" />
+    </div>
+  </div>
+  <div class="tbgwrap">
+    <div class="tphoto">
+      <img id="profileImage" src="generated-photos-new/front/image (0).png" title="tphoto" alt="Tinder Photo" />
+      <img id="maskImage" src="mask.png" />
+      <div class="tname">Jane Doe, <span class="age">27</span></div>
+      <div class="tinfo"><i class="fa fa-book" aria-hidden="true"> 0</i><i class="fa fa-users" aria-hidden="true"> 0</i></div>
+    </div>
+    <div class="tcontrols">
+    <!--	original no
+      <div class="tno"><i class="fa fa-times" aria-hidden="true"></i></div>
+      -->
+      <div class="tno"><i class="fas fa-head-side-mask fa-flip-horizontal" aria-hidden="true"></i></div>
+      <!--
+      <div class="ti"><i class="fa fa-info" aria-hidden="true"></i></div>
+      -->
+      <div class="ti"><i class="fas fa-biohazard" aria-hidden="true"></i></div>
+      <!--
+      <div class="tyes"><i class="fa fa-heart" aria-hidden="true"></i></div>
+      -->
+      <div class="tyes"><i class="fas fa-head-side-cough" aria-hidden="true"></i></div>
+    </div>
+  </div>
 </div>
-<p id="photograph"></p>
-<p>Name</p>
-<p>Age</p>
-<div id="clickTest"></div>
-<div id="mouseMove"></div>
-<div id="swipeDirection"></div>
-<div id="pinchOutStatus"></div>
-<div id="pinchInStatus"></div>
-<div id="pinchStatus"></div>
-<!-- <div id="myElement"></div> -->
-
-
-
-
-<!--
-<button onclick="downClick()">Down</button>
-<button onclick="upClick()">Up</button>
--->
-
-<div class="tinder--buttons">
-  <button onclick="downClick()" id="unmask"><i class="fas fa-head-side-cough"></i></button>
+<div class="debug">
+	<div id="swipeDirection"><p>nothing</p></div>
+	<div id="imageName"><p>nothing</p></div>
+	
 </div>
-<div class="tinder--buttons">
-  <button onclick="underNose()" id="tissues"><i class="fas fa-box-tissue"></i></button>
-  <button onclick="upClick()"id="mask"><i class="fas fa-head-side-mask fa-flip-horizontal"></i></button>
-
-</div>
-
 <script>
-function underNose() {
 
-  document.getElementById("moveMask").style.display = 'inline';
-  document.getElementById("moveMask").style.top = '515px';
-}
-function downClick() {
-  document.getElementById('swipeDirection').innerHTML='Swipe Down!'
-  document.getElementById("moveMask").style.display = 'none';
-  // changeProfileImage()
-}
-
-function upClick() {
-  document.getElementById('swipeDirection').innerHTML='Swipe Up!'
-  document.getElementById("moveMask").style.display = 'inline';
-  document.getElementById("moveMask").style.top = '475px';
-  // changeProfileImage()
-}
-
+// Listen for keyboard events up, down, left, right
 document.addEventListener('keydown', function(e) {
     switch (e.keyCode) {
-
         case 38:
            // alert('up');
-           // document.getElementById('myImage').src='generated-photos/image (2).png'
-           document.getElementById('swipeDirection').innerHTML='Swipe Up!'
-           upClick()
-           //changeProfileImage()
+           //document.getElementById('profileImage').src='XzAwNTY1MDEuanBn.jpg'
+           document.getElementById('swipeDirection').innerHTML='Keyboard Up'
+           document.getElementById('maskImage').style.top='50%'
             break;
         case 40:
             // alert('down');
-            // document.getElementById('myImage').src='generated-photos/image (1).png'
-            document.getElementById('swipeDirection').innerHTML='Swipe Down!'
-            underNose()
-            //changeProfileImage()
+            //document.getElementById('profileImage').src='XzAyNTk5OTAuanBn.jpg'
+            document.getElementById('swipeDirection').innerHTML='Keyboard Down'
+            document.getElementById('maskImage').style.top='67%'
             break;
         case 37:
-            document.getElementById('swipeDirection').innerHTML='Left!'
+            document.getElementById('swipeDirection').innerHTML='Keyboard Left'
             changeProfileImage()
             break;
         case 39:
-            document.getElementById('swipeDirection').innerHTML='Right!'
+            document.getElementById('swipeDirection').innerHTML='Keyboard Right'
             changeProfileImage()
             break;
-
     }
 });
 
+// cycle through profile images
 function changeProfileImage() {
-  var age = Math.floor(Math.random() * Math.floor(10));
-  var imageName = 'generated-photos/image (' + String(age) + ').png'
-  document.getElementById("photograph").innerHTML = imageName;
-  document.getElementById("myImage").src = 'generated-photos/image (' + String(age) + ').png';
-
-  document.getElementById("moveMask").style.display = 'inline';
-  document.getElementById("moveMask").style.top = '520px';
+  var ranNum = Math.floor(Math.random() * Math.floor(10));
+  var imageName = 'generated-photos-new/front/image (' + String(ranNum) + ').png'
+  document.getElementById("profileImage").src = imageName;
+  document.getElementById('maskImage').style.top='55%'
+  document.getElementById("imageName").innerHTML = imageName;
 }
 
-var myElement = document.getElementById('myImage');
-
-// create a simple instance
-// by default, it only adds horizontal recognizers
+// swiping
+var myElement = document.getElementById('profileImage');
 var mc = new Hammer(myElement);
-
-
-
 // let the pan gesture support all directions.
 // this will block the vertical scrolling on a touch-device while on the element
 mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 var swipeDown = 0;
 var swipeUp = 0;
-// listen to events...
+
 mc.on("swipeleft", function(ev) {
+  document.getElementById('swipeDirection').innerHTML='Finger Left'
   changeProfileImage()
 });
 mc.on("swiperight", function(ev) {
+  document.getElementById('swipeDirection').innerHTML='Finger Right'
   changeProfileImage()
 });
+// swipe up, swipe down
 mc.on("swipeup", function(ev) {
-  console.log('swipeup triggered');
-  swipeUp = swipeUp + 1;
-  console.log("swipeUp: " + swipeUp);
+  //console.log('swipeup triggered');
+  //swipeUp = swipeUp + 1;
+  //console.log("swipeUp: " + swipeUp);
   //changeProfileImage()
-  document.getElementById("moveMask").style.display = 'inline';
-  document.getElementById("moveMask").style.top = '475px';
-  document.getElementById('swipeDirection').innerHTML='Swipe Up!'
+  //document.getElementById("moveMask").style.display = 'inline';
+  document.getElementById('maskImage').style.top='50%'
+  document.getElementById('swipeDirection').innerHTML='Finger Up'
 });
 mc.on("swipedown", function(ev) {
-  console.log('swipedown triggered');
-  swipeDown = swipeDown + 1;
-  console.log("swipeDown: " + swipeDown);
-  document.getElementById("moveMask").style.display = 'inline';
-  document.getElementById("moveMask").style.top = '515px';
+  //console.log('swipedown triggered');
+  //swipeDown = swipeDown + 1;
+  //console.log("swipeDown: " + swipeDown);
+  //document.getElementById("moveMask").style.display = 'inline';
+  document.getElementById('maskImage').style.top='67%'
+  document.getElementById('swipeDirection').innerHTML='Finger Down'
   //changeProfileImage()
   //document.getElementById("moveMask").style.display = 'none';
   //document.getElementById('swipeDirection').innerHTML='Swipe Down!'
 });
 
-/* test add pinch */
-var pin = new Hammer.Manager(myElement);
-var pinch = new Hammer.Pinch();
-var rotate = new Hammer.Rotate();
-pinch.recognizeWith(rotate);
-pin.add([pinch, rotate]);
-//pinch.get('pinch').set({ enable : true });
 
-var pinchOut = 0;
-var pinchIn = 0;
-var pinch = 0
-pin.on("pinchout rotate", function(ev) {
-  pinchOut = pinchOut + 1;
-  document.getElementById('pinchOutStatus').innerHTML='pinchout ' + pinchOut;
-});
-pin.on("pinchin rotate", function(ev) {
-  pinchIn = pinchIn + 1;
-  document.getElementById('pinchInStatus').innerHTML='pinchin ' + pinchIn;
-});
-pin.on("pinch rotate", function(ev) {
-  pinch = pinch + 1;
-  document.getElementById('pinchStatus').innerHTML='pinch ' + pinch;
-});
 </script>
 </body>
 </html>
