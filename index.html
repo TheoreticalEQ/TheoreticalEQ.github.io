@@ -18,11 +18,8 @@
   </div>
   <div class="tbgwrap">
     <div class="tphoto">
-    <!--
-      <div id="imageandMask"> -->
-          <img id="profileImage" src="generated-photos-new/front/image (0).png" title="tphoto" alt="Tinder Photo" />
-          <img id="maskImage" src="mask.png"/>
-      <!--</div>	 -->
+      <img id="profileImage" src="generated-photos-new/front/image (0).png" title="tphoto" alt="Tinder Photo" />
+      <img id="maskImage" src="mask.png" />
       <div class="tname">Jane Doe, <span class="age">27</span></div>
       <div class="tinfo"><i class="fa fa-book" aria-hidden="true"> 0</i><i class="fa fa-users" aria-hidden="true"> 0</i></div>
     </div>
@@ -84,11 +81,8 @@ function changeProfileImage() {
   document.getElementById("imageName").innerHTML = imageName;
 }
 
-// swiping imageandMask
-// var myElement = document.getElementById('profileImage');
-// var myElement = document.getElementById('imageandMask');
-// getElementsByClassName
-var myElement = document.getElementsByClassName('tphoto');
+// swiping
+var myElement = document.getElementById('profileImage');
 var mc = new Hammer(myElement);
 // let the pan gesture support all directions.
 // this will block the vertical scrolling on a touch-device while on the element
