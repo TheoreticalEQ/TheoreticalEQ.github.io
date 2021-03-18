@@ -9,10 +9,10 @@
  */
 export default class TinyGesture {
   constructor (element, options) {
-    options = Object.assign({}, TinyGesture.defaults, options = {
+    options = Object.assign({}, TinyGesture.defaults, options);
       // Used to calculate the threshold to consider a movement a swipe. it is
         // passed type of 'x' or 'y'.
-        threshold: (type, self) => Math.max(
+      //  threshold: (type, self) => Math.max(
           // 25,
         //   Math.floor(10 * (
         //     type === 'x'
