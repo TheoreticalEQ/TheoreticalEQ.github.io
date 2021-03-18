@@ -44,7 +44,7 @@ export default class TinyGesture {
         // diagonalLimit: Math.tan(45 * 1.5 / 180 * Math.PI),
         // Listen to mouse events in addition to touch events. (For desktop support.)
         // mouseSupport: true
-      };
+      //};
 
     this.element = element;
     this.opts = options;
