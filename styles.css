@@ -26,7 +26,7 @@
 .tlogo { width: 100px; margin: 0 auto; padding: 10px; }
 .tlogo img { width: 100px; }
 .tphoto {
-    
+
     width: 350px;
     height: 350px;
     overflow: hidden;
@@ -51,10 +51,23 @@
 .tphoto #maskImage {
 display: block;
 position: absolute;
-top: 55%;
-left: 37%;
-width: 27%;
-height: auto;
+background-image: url(mask.png);
+
+top: 65%;
+left: 38%;
+/*
+width: 2%;
+
+height: 20%;
+
+background-size: 300px, 300px;
+transform: translate3d(0, 0, 0);
+*/
+background-repeat: no-repeat;
+background-size: 100%;
+height: 25%;
+width: 25%;
+transform: translate3d(0, 0, 0);
 }
 .tname {
     padding: 15px;
@@ -129,4 +142,3 @@ height: auto;
     font-size: 60px;
     padding: 30px 30px;
 }
-

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="styles.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://hammerjs.github.io/dist/hammer.js"></script>
   <script src="https://kit.fontawesome.com/2f9c919c13.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
 
@@ -19,7 +20,8 @@
   <div class="tbgwrap">
     <div class="tphoto">
       <img id="profileImage" src="generated-photos-new/front/image (0).png" title="tphoto" alt="Tinder Photo" />
-      <img id="maskImage" src="mask.png" />
+      <!-- <img id="maskImage" src="mask.png" /> -->
+      <div id="maskImage"></div>
       <div class="tname">Jane Doe, <span class="age">27</span></div>
       <div class="tinfo"><i class="fa fa-book" aria-hidden="true"> 0</i><i class="fa fa-users" aria-hidden="true"> 0</i></div>
     </div>
@@ -42,8 +44,8 @@
 <div class="debug">
 	<div id="swipeDirection"><p>nothing</p></div>
 	<div id="imageName"><p>nothing</p></div>
-	
 </div>
+<script type="module" src="index.js"></script>
 <script>
 
 // Listen for keyboard events up, down, left, right
@@ -80,47 +82,7 @@ function changeProfileImage() {
   document.getElementById('maskImage').style.top='55%'
   document.getElementById("imageName").innerHTML = imageName;
 }
-
-// swiping
-var myElement = document.getElementById('profileImage');
-var mc = new Hammer(myElement);
-// let the pan gesture support all directions.
-// this will block the vertical scrolling on a touch-device while on the element
-mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-var swipeDown = 0;
-var swipeUp = 0;
-
-mc.on("swipeleft", function(ev) {
-  document.getElementById('swipeDirection').innerHTML='Finger Left'
-  changeProfileImage()
-});
-mc.on("swiperight", function(ev) {
-  document.getElementById('swipeDirection').innerHTML='Finger Right'
-  changeProfileImage()
-});
-// swipe up, swipe down
-mc.on("swipeup", function(ev) {
-  //console.log('swipeup triggered');
-  //swipeUp = swipeUp + 1;
-  //console.log("swipeUp: " + swipeUp);
-  //changeProfileImage()
-  //document.getElementById("moveMask").style.display = 'inline';
-  document.getElementById('maskImage').style.top='50%'
-  document.getElementById('swipeDirection').innerHTML='Finger Up'
-});
-mc.on("swipedown", function(ev) {
-  //console.log('swipedown triggered');
-  //swipeDown = swipeDown + 1;
-  //console.log("swipeDown: " + swipeDown);
-  //document.getElementById("moveMask").style.display = 'inline';
-  document.getElementById('maskImage').style.top='67%'
-  document.getElementById('swipeDirection').innerHTML='Finger Down'
-  //changeProfileImage()
-  //document.getElementById("moveMask").style.display = 'none';
-  //document.getElementById('swipeDirection').innerHTML='Swipe Down!'
-});
-
-
 </script>
+
 </body>
 </html>
