@@ -1,7 +1,8 @@
 import TinyGesture from './TinyGesture.js';
+// Options object is optional. These are the defaults.
 
 document.addEventListener('DOMContentLoaded', () => {
-  const target = document.getElementById('maskImage');
+  const target = document.getElementById('fister');
   const gesture = new TinyGesture(target);
   let bgColor = null;
 
@@ -36,23 +37,35 @@ document.addEventListener('DOMContentLoaded', () => {
     bgColor = null;
     target.style.backgroundColor = bgColor;
   });
-
+  /*
   gesture.on('swiperight', () => {
-    //target.style.transform = 'perspective(1000px) translate3d(2000px, 0, 0)';
-    //setTimeout(() => target.style.transform = null, 1000);
-  });
-  gesture.on('swipeleft', () => {
-    //target.style.transform = 'perspective(1000px) translate3d(-2000px, 0, 0)';
-    //setTimeout(() => target.style.transform = null, 1000);
-  });
-  gesture.on('swipeup', () => {
-  console.log('swipeup');
-    target.style.transform = 'perspective(1000px) translate3d(0, -2000px, 0)';
+    target.style.transform = 'perspective(1000px) translate3d(2000px, 0, 0)';
     setTimeout(() => target.style.transform = null, 1000);
+  });
+  */
+
+  gesture.on('swipeleft', () => {
+    console.log('swife left');
+    showAngry();
+    dropWolfHealth();
+    blueTitle();
+    sleep(250).then(() => {
+      redTitle();
+      showChill();
+
+});
+    //target.style.transform = 'perspective(1000px) translate3d(-2000px, 0, 0)';
+    setTimeout(() => target.style.transform = null, 1000);
+  });
+/*
+  gesture.on('swipeup', () => {
+    //console.log('swipeup');
+    //target.style.transform = 'perspective(1000px) translate3d(0, -2000px, 0)';
+    //setTimeout(() => target.style.transform = null, 1000);
   });
   gesture.on('swipedown', () => {
-    target.style.transform = 'perspective(1000px) translate3d(0, 2000px, 0)';
-    setTimeout(() => target.style.transform = null, 1000);
+    //target.style.transform = 'perspective(1000px) translate3d(0, 2000px, 0)';
+    //setTimeout(() => target.style.transform = null, 1000);
   });
 
   let tapTimeout;
@@ -69,4 +82,5 @@ document.addEventListener('DOMContentLoaded', () => {
     bgColor = '#666688';
     target.style.backgroundColor = bgColor;
   });
+  */
 });
