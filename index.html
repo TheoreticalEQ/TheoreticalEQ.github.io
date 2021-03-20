@@ -14,9 +14,10 @@
 
 #ball {
   cursor: pointer;
-  width: 100px;
-  height: 100px;
-  user-select: none;
+  width: 40px;
+  height: 40px;
+  /*user-select: none;*/
+  touch-action: none;
 }
 </style>
 </head>
@@ -30,10 +31,11 @@
   <img src="https://en.js.cx/clipart/ball.svg" id="ball">
 
   <script>
+    ball.ondragstart = () => false
     let currentDroppable = null;
 
+    // ball.onpointerdown = function(event) {
     ball.onpointerdown = function(event) {
-
       let shiftX = event.clientX - ball.getBoundingClientRect().left;
       let shiftY = event.clientY - ball.getBoundingClientRect().top;
 
