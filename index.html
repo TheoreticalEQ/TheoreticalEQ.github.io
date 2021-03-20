@@ -11,12 +11,19 @@
     <div id="title" class="title">
       <h1>Wolfpuncher</h1>
     </div>
+    <!-- island_lady.jpeg
     <img id="background" src="ice-kingdom.jpg">
+    -->
+    <img id="background" src="island_lady.jpeg">
+
     <img id="angryWolf" src="angry_wolf_clear.png">
     <img id="chillWolf" src="chill_party_wolf_clear.png">
     <img id="lava" src="Lava.gif">
     <!-- <img id="fister" src="fister_clear.png"> -->
     <div id="fister"></div>
+    <div class="health">
+      <progress id="wolfHealth" value="100" max="100"></progress>
+    </div>
   </div>
 
   <div class="controls">
@@ -26,14 +33,20 @@
     <button onclick="redTitle()"><p>redTitle</p></button>
     <button onclick="blueTitle()"><p>blueTitle</p></button>
     <button onclick="punchWolf()"><p>punchWolf</p></button>
+    <button onclick="explosionSound()"><p>explosion sound</p></button>
+    <button onclick="wolfGrowl()"><p>Wolf Growl</p></button>
+    <!--<button onclick="battleSong()"><p>Battle song</p></button>-->
+    <button onclick="battleSong()"><p>battle song</p></button>
   </div>
 
-  <div class="health">
-    <progress id="wolfHealth" value="100" max="100"></progress>
-  </div>
+
 </div>
+
+
 <script type="module" src="index.js"></script>
 <script>
+//var songRepeat = document.getElementById("songBattle").loop;
+//songRepeat.loop = true;
 var wolfHealth = document.getElementById("wolfHealth");
 var title = document.getElementById("title");
 var iceFist = document.getElementById("fister")
@@ -50,6 +63,31 @@ function showChill() {
 }
 function dropWolfHealth() {
   wolfHealth.value -= 10; //Or whatever you want to do with it.
+}
+var swipePunchedWolf = false;
+
+function swipePunchWof() {
+  // console.log('swife left');
+  showAngry();
+  dropWolfHealth();
+  blueTitle();
+  wolfGrowl()
+  sleep(250).then(() => {
+    redTitle();
+    showChill();
+  });
+}
+function punchWolf() {
+  showAngry();
+  dropWolfHealth();
+  blueTitle();
+  wolfGrowl()
+  iceFist.style.left="23%";
+  sleep(250).then(() => {
+    iceFist.style.left="75%";
+    redTitle();
+    showChill();
+  });
 }
 function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
@@ -70,29 +108,49 @@ window.onkeypress = function(event) {
       punchWolf();
    }
 }
-function punchWolf() {
-  showAngry();
-  dropWolfHealth();
-  blueTitle();
-  /*
-  background.style.display = ('none')
-  background.style.width = backgroundWidth;
-  background.style.height = backgroundHeight;
-  background.style.backgroundColor = "red";
-  */
-  iceFist.style.left="35%";
-  sleep(250).then(() => {
-    /*
-    background.style.backgroundColor = "";
-    background.style.display = ('block')
-    */
-    iceFist.style.left="60%";
 
-    redTitle();
-    showChill();
-  });
+
+var audioExplosion = new Audio('atomic-bomb.mp3');
+function explosionSound() {
+  console.log('explosion Sound');
+  audioExplosion.volume = 0.1;
+  audioExplosion.loop = true;``
+  audioExplosion.play();
 }
+
+var audioGrowl = new Audio('Dog Growl-SoundBible.com-792375621.mp3');
+function wolfGrowl() {
+  audioGrowl.currentTime = 0
+  console.log('wolf growl Sound');
+  audioGrowl.volume = 0.1;
+  audioGrowl.play();
+}
+
+
+//var audioBattle = new Audio('Pokmon GO  Encounter.mp3');
+// audioBattle.autoplay = true;
+//audioBattle.loop = true;
+//audioBattle.load();
+
+
+
+function battleSong() {
+  var audioBattle = new Audio ('Pokmon GO  Encounter.mp3');
+  //audioBattle.autoplay = true;
+  //console.log('battle song');
+  audioBattle.volume = 0.1;
+  audioBattle.loop = true;
+  audioBattle.play();
+}
+
 /*
+var battleSong = new Audio('Pokmon GO  Encounter.mp3');
+function battleSong() {
+  console.log('battlee song start');
+  battleSong.play();
+}
+
+
 while (true) {
   console.log('thung');
   iceFist.style.top="65%";
