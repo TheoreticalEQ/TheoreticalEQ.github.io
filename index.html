@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="style.css"> -->
   <style>
     #gate {
   cursor: pointer;
@@ -31,7 +31,7 @@
   <script>
     let currentDroppable = null;
 
-    ball.onmousedown = function(event) {
+    ball.onpointerdown = function(event) {
 
       let shiftX = event.clientX - ball.getBoundingClientRect().left;
       let shiftY = event.clientY - ball.getBoundingClientRect().top;
@@ -69,10 +69,10 @@
         }
       }
 
-      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('pointermove', onMouseMove);
 
       ball.onmouseup = function() {
-        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('pointermove', onMouseMove);
         ball.onmouseup = null;
       };
 
