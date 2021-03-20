@@ -1,191 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+
 <head>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div>
+
+  <p>Drag the ball.</p>
+
+  <img src="https://en.js.cx/clipart/soccer-gate.svg" id="gate" class="droppable">
+
+  <img src="https://en.js.cx/clipart/ball.svg" id="ball">
+
+  <script>
+    let currentDroppable = null;
+
+    ball.onmousedown = function(event) {
+
+      let shiftX = event.clientX - ball.getBoundingClientRect().left;
+      let shiftY = event.clientY - ball.getBoundingClientRect().top;
+
+      ball.style.position = 'absolute';
+      ball.style.zIndex = 1000;
+      document.body.append(ball);
+
+      moveAt(event.pageX, event.pageY);
+
+      function moveAt(pageX, pageY) {
+        ball.style.left = pageX - shiftX + 'px';
+        ball.style.top = pageY - shiftY + 'px';
+      }
+
+      function onMouseMove(event) {
+        moveAt(event.pageX, event.pageY);
+
+        ball.hidden = true;
+        let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+        ball.hidden = false;
+
+        if (!elemBelow) return;
+
+        let droppableBelow = elemBelow.closest('.droppable');
+        if (currentDroppable != droppableBelow) {
+          if (currentDroppable) { // null when we were not over a droppable before this event
+            leaveDroppable(currentDroppable);
+          }
+          currentDroppable = droppableBelow;
+          if (currentDroppable) { // null if we're not coming over a droppable now
+            // (maybe just left the droppable)
+            enterDroppable(currentDroppable);
+          }
+        }
+      }
+
+      document.addEventListener('mousemove', onMouseMove);
+
+      ball.onmouseup = function() {
+        document.removeEventListener('mousemove', onMouseMove);
+        ball.onmouseup = null;
+      };
+
+    };
+
+    function enterDroppable(elem) {
+      elem.style.background = 'pink';
+    }
+
+    function leaveDroppable(elem) {
+      elem.style.background = '';
+    }
+
+    ball.ondragstart = function() {
+      return false;
+    };
+  </script>
 
 
-  <div class="battle">
-    <div id="title" class="title">
-      <h1>Wolfpuncher</h1>
-    </div>
-    <!-- island_lady.jpeg
-    <img id="background" src="ice-kingdom.jpg">
-    -->
-    <img id="background" src="island_lady.jpeg">
-
-    <img id="angryWolf" src="angry_wolf_clear.png">
-    <img id="chillWolf" src="chill_party_wolf_clear.png">
-    <img id="lava" src="Lava.gif">
-    <!-- <img id="fister" src="fister_clear.png"> -->
-    <div id="fister"></div>
-    <div class="health">
-      <progress id="wolfHealth" value="100" max="100"></progress>
-    </div>
-  </div>
-
-  <div class="controls">
-    <button onclick="showAngry()"><p>Show Angry</p></button>
-    <button onclick="showChill()"><p>Show Chill</p></button>
-    <button onclick="dropWolfHealth()"><p>Wolf Hurt</p></button>
-    <button onclick="redTitle()"><p>redTitle</p></button>
-    <button onclick="blueTitle()"><p>blueTitle</p></button>
-    <button onclick="punchWolf()"><p>punchWolf</p></button>
-    <button onclick="explosionSound()"><p>explosion sound</p></button>
-    <button onclick="wolfGrowl()"><p>Wolf Growl</p></button>
-    <!--<button onclick="battleSong()"><p>Battle song</p></button>-->
-    <button onclick="battleSong()"><p>battle song</p></button>
-  </div>
-
-
-</div>
-
-
-<script type="module" src="index.js"></script>
-<script>
-//var songRepeat = document.getElementById("songBattle").loop;
-//songRepeat.loop = true;
-var wolfHealth = document.getElementById("wolfHealth");
-var title = document.getElementById("title");
-var iceFist = document.getElementById("fister")
-var background = document.getElementById("background");
-var backgroundWidth = background.clientWidth;
-var backgroundHeight = background.clientHeight;
-function showAngry() {
-  chillWolf.style.display = ('none');
-  angryWolf.style.display = ('inline-block');
-}
-function showChill() {
-  angryWolf.style.display = ('none');
-  chillWolf.style.display = ('inline-block');
-}
-function dropWolfHealth() {
-  wolfHealth.value -= 10; //Or whatever you want to do with it.
-}
-var swipePunchedWolf = false;
-
-function swipePunchWof() {
-  // console.log('swife left');
-  showAngry();
-  dropWolfHealth();
-  blueTitle();
-  wolfGrowl()
-  sleep(250).then(() => {
-    redTitle();
-    showChill();
-  });
-}
-function punchWolf() {
-  showAngry();
-  dropWolfHealth();
-  blueTitle();
-  wolfGrowl()
-  iceFist.style.left="23%";
-  sleep(250).then(() => {
-    iceFist.style.left="75%";
-    redTitle();
-    showChill();
-  });
-}
-function sleep (time) {
-  return new Promise((resolve) => setTimeout(resolve, time));
-}
-function redTitle() {
-  title.style.webkitTextStroke = "0.4vw red";
-  title.style.color ="yellow";
-  /*title.style.textShadow = "0px 2px 4px red"*/
-}
-function blueTitle() {
-  title.style.webkitTextStroke = "0.4vw lightblue";
-  title.style.color ="darkblue";
-  /*title.style.textShadow = "0px 2px 4px darkblue"*/
-}
-
-window.onkeypress = function(event) {
-   if (event.keyCode == 32) {
-      punchWolf();
-   }
-}
-
-
-var audioExplosion = new Audio('atomic-bomb.mp3');
-function explosionSound() {
-  console.log('explosion Sound');
-  audioExplosion.volume = 0.1;
-  audioExplosion.loop = true;``
-  audioExplosion.play();
-}
-
-var audioGrowl = new Audio('Dog Growl-SoundBible.com-792375621.mp3');
-function wolfGrowl() {
-  audioGrowl.currentTime = 0
-  console.log('wolf growl Sound');
-  audioGrowl.volume = 0.1;
-  audioGrowl.play();
-}
-
-
-//var audioBattle = new Audio('Pokmon GO  Encounter.mp3');
-// audioBattle.autoplay = true;
-//audioBattle.loop = true;
-//audioBattle.load();
-
-
-
-function battleSong() {
-  var audioBattle = new Audio ('Pokmon GO  Encounter.mp3');
-  //audioBattle.autoplay = true;
-  //console.log('battle song');
-  audioBattle.volume = 0.1;
-  audioBattle.loop = true;
-  audioBattle.play();
-}
-
-/*
-var battleSong = new Audio('Pokmon GO  Encounter.mp3');
-function battleSong() {
-  console.log('battlee song start');
-  battleSong.play();
-}
-
-
-while (true) {
-  console.log('thung');
-  iceFist.style.top="65%";
-  sleep(1050).then(() => {
-    iceFist.style.top="55%";
-  });
-}
-*/
-/*
-* text "punch the wolf!!"
-
-health bar shifts rightward when it gets hurt. red is almost dead, yellow is mid, green is full
-* AUDIO: warning wolfsplosion, fireballs, wolf flashing red and back to normal,
-starts to fall back to the left angling down, like a ship
-* WOLFSPLOSION TEXT flashes fed and black
-* stupid repetitive audio in the background
-* wolf gets pushed back on each hit
-* wolf makes noise on punches
-* white flashing play option in center
-* countound 3, 2, 1, GO
-* ugly winter background
-* background swaps to red on hits. TITLE switches darkblue center, light blue otuside
-* score +6 for each height
-* fist iggles around
-* fist angled down from above
-* wolfpuncheer2 tm DEFAULT off yellow inside, red outside
-  *
-*
-* AUDIO: warning wolfsplosion
-* would you like to play again? too bad.
-
-game over
-____ submit score
-score 3 letter acronym
-*/
-</script>
 </body>
 </html>
