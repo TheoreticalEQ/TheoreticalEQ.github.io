@@ -16,7 +16,7 @@
   cursor: pointer;
   width: 40px;
   height: 40px;
-  /*user-select: none;*/
+  user-select: none;
   touch-action: none;
 }
 </style>
@@ -89,7 +89,7 @@
       elem.style.background = '';
     }
 
-    ball.touchmove = function() {
+    ball.pointermove = function() {
       return false;
     };
   </script>
