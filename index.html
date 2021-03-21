@@ -3,9 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <!--
-  <link rel="stylesheet" href="style.css">
-  -->
+  <!-- <link rel="stylesheet" href="style.css"> -->
   <style>
     #gate {
   cursor: pointer;
@@ -18,6 +16,7 @@
   cursor: pointer;
   width: 40px;
   height: 40px;
+  /*user-select: none;*/
   touch-action: none;
 }
 </style>
@@ -33,13 +32,10 @@
 
   <script>
     ball.ondragstart = () => false
-    var i = 0;
-    var j = 0;
-    console.log(i + j);
     let currentDroppable = null;
 
-    ball.onmousedown = function(event) {
-
+    // ball.onpointerdown = function(event) {
+    ball.onpointerdown = function(event) {
       let shiftX = event.clientX - ball.getBoundingClientRect().left;
       let shiftY = event.clientY - ball.getBoundingClientRect().top;
 
@@ -76,29 +72,24 @@
         }
       }
 
-      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('pointermove', onMouseMove);
 
       ball.onmouseup = function() {
-        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('pointermove', onMouseMove);
         ball.onmouseup = null;
       };
 
     };
 
     function enterDroppable(elem) {
-
-      i = i + 1;
-      console.log("i: " + i);
       elem.style.background = 'pink';
     }
 
     function leaveDroppable(elem) {
-      j = j + 1;
-      console.log("j: " + j);
       elem.style.background = '';
     }
 
-    ball.ondragstart = function() {
+    ball.touchmove = function() {
       return false;
     };
   </script>
