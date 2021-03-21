@@ -36,7 +36,7 @@
 
     // ball.onpointerdown = function(event) {
     ball.onpointerdown = function(event) {
-      event.preventDefault();
+      // event.preventDefault();
       let shiftX = event.clientX - ball.getBoundingClientRect().left;
       let shiftY = event.clientY - ball.getBoundingClientRect().top;
 
@@ -52,6 +52,8 @@
       }
 
       function onMouseMove(event) {
+        // added e.preventDefault();
+        event.preventDefault();
         moveAt(event.pageX, event.pageY);
 
         ball.hidden = true;
