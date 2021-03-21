@@ -36,6 +36,7 @@
 
     // ball.onpointerdown = function(event) {
     ball.onpointerdown = function(event) {
+      event.preventDefault();
       let shiftX = event.clientX - ball.getBoundingClientRect().left;
       let shiftY = event.clientY - ball.getBoundingClientRect().top;
 
