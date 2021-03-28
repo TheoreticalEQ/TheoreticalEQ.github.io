@@ -1,6 +1,7 @@
-body {
-  overflow-y:hidden;
+html, body {
+  overflow: hidden;
   overscroll-behavior: none;
+
 }
 .tbg {
     height: 720px;
