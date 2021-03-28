@@ -109,6 +109,7 @@ export default class TinyGesture {
   }
 
   onTouchMove (event) {
+    event.preventDefault();
     // console.log('touchmove');
     if (event.type === 'mousemove' && (!this.touchStartX || this.touchEndX !== null)) {
       return;
