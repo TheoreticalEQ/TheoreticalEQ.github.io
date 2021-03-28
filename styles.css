@@ -40,7 +40,6 @@ body {
 .tlogo { width: 100px; margin: 0 auto; padding: 10px; }
 .tlogo img { width: 100px; }
 .tphoto {
-
     width: 350px;
     height: 350px;
     overflow: hidden;
@@ -53,21 +52,35 @@ body {
     -ms-border-radius: 10px;
     border: 1px solid #c0c0c0;
     padding-bottom: 60px;
-    background-color: #fff;
+    /* background-color: #fff; */
     box-shadow: 2px 2px 2px #c0c0c0;
 }
+#backgroundColor {
+  background-color: red;
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  display: inline-block;
+  bottom: 0px;
+}
 .tphoto #profileImage {
-  display: block;
+  display: inline-block;
   width: 350px;
   height: auto;
+  display: inline-block;
+  /**/
+  background-color: #C2C2C2
+
 }
 #maskImage {
   width: 95px;
   height: auto;
   overflow: hidden;
+  display: inline;
+  position: absolute;
 }
 .tphoto #maskImage {
-display: block;
+display: inline;
 position: absolute;
 top: 229px;
 left: 128px;
@@ -95,6 +108,17 @@ height: auto;
     font-size: 24px;
     padding: 12px;
 }
+/*
+.far-people-arrows {
+  padding-right: 15px;
+  padding-left: 15px;
+  right: 5px;
+}
+.fa-plane  {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+*/
 .tcontrols {}
 .tno {
     background-color: #fff;

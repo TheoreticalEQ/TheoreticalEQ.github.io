@@ -9,7 +9,7 @@
 <div id="heygirlhey"></div>
 <div class="tbg">
   <div class="theader">
-    <i class="fa fa-cog" aria-hidden="true"></i>
+    <!-- <i class="fa fa-cog" aria-hidden="true"></i> -->
     <i class="fa fa-comments" aria-hidden="true"></i>
     <div class="tlogo">
       <img src="https://worldvectorlogo.com/logos/tinder-1.svg" alt="Tinder Logo" title="Tinder Logo" />
@@ -19,13 +19,17 @@
     <div class="tphoto">
       <img id="profileImage" src="./generated-photos-new/front/image (0).png" title="tphoto" alt="Tinder Photo" />
       <img id="maskImage" src="./mask.png" />
+      <!-- <div id=backgroundColor></div> -->
       <div class="tname">Jane Doe, <span class="age">27</span></div>
       <!--
       <div class="tinfo"><i class="fa fa-book" aria-hidden="true"> 0</i><i class="fa fa-users" aria-hidden="true"> 0</i></div>
       <i class="fas fa-plane"></i>
       <i class="fas fa-people-arrows"></i>
       -->
-      <div class="tinfo"><i class="fas fa-plane" aria-hidden="true">2</i><i class="fas fa-people-arrows" aria-hidden="true">34</i></div>
+      <div class="tinfo">
+        <i class="fas fa-plane" aria-hidden="true" id="planeTrips">2</i>
+        <i class="fas fa-people-arrows" aria-hidden="true" id="closePersonalContact">34</i>
+      </div>
     </div>
     <div class="tcontrols">
     <!--	original no
@@ -51,6 +55,140 @@
 </div>
 </body>
 <script>
+function showNextProfile() {
+  chooseLRFProfilePic();
+  setBackgroundColor();
+  setNumFlightsTraveled();
+  numClosePersonalContact();
+  // name
+  // age
+}
+var numFlightsTraveled = null;
+function setNumFlightsTraveled(){
+  numFlightsTraveled = Math.floor(Math.random() * 5);
+  document.getElementById("planeTrips").innerHTML = numFlightsTraveled;
+  return numFlightsTraveled;
+}
+
+var numClosePersonal = null;
+function numClosePersonalContact(){
+  numClosePersonal = numFlightsTraveled * 4 + Math.floor(Math.random() * 15);
+  document.getElementById("closePersonalContact").innerHTML = numClosePersonal;
+}
+
+
+
+
+
+var randomColNum = 666;
+// var randomColorChoice = null;
+var targetImage = document.getElementById("profileImage").getElementsByClassName("tphoto");
+function setBackgroundColor() {
+  randomColNum = Math.floor(Math.random() * 11);
+  var arrayOfColors = ["#C2C2C2", "#F6F6F6", "#FAD6D6", "#FBDEED", "#E3D6FD", "#D5EDFE",
+  "#DAF8F9", "#E1F6D7", "#F2F8DA", "#FEF7D7", "#FBE4D4"];
+  var randomColorChoice = arrayOfColors[randomColNum];
+  // console.log("random number generates color: " + randomColorChoice);
+  // console.log("I use # 3" + arrayOfColors[3]);
+  // console.log("which should be the same as: " + arrayOfColors[3] + "but y: " + randomColorChoice);
+  document.getElementById("profileImage").style.backgroundColor = randomColorChoice;
+  // console.log(targetImage);
+  // targetImage.style.backgroundColor = randomColorChoice;
+  // console.log("random color num: " + randomColNum);
+  // console.log("random color: " + randomColorChoice);
+  // document.getElementById("profileImage").setAttribute('style', "'background-color:" + randomColorChoice + " !important'");
+}
+
+var randomNum = null;
+function chooseLRFProfilePic() {
+  randomNum = Math.floor(Math.random() * 3);
+  console.log("random number is " + randomNum);
+  if (randomNum == 0) {
+    console.log("calling FRONT profile pic FUNCTION");
+    showNextFrontProfile();
+  }    else if (randomNum == 1) {
+    console.log("calling LEFT profile pic FUNCTION");
+    showNextLeftProfile();
+  }  else if (randomNum == 2) {
+    console.log("calling RIGHT profile pic FUNCTION");
+    showNextRightProfile();
+  }   else {
+    console.log("WHAT THE F&#@ IS GOING ON?!?")
+  }
+}
+
+// Array of Front Pictures
+var currentFrontArrayPos = 0;
+var currentProfilePic = document.getElementById("profileImage");
+var frontPicArray = ["image (0).png", "image (1).png", "image (2).png",
+"image (3).png", "image (4).png", "image (5).png", "image (6).png",
+"image (7).png", "image (8).png", "image (9).png"];
+var arrayFrontLength = 10;
+function showNextFrontProfile() {
+  console.log("FRONT profile function RUNNING");
+  pathFront = "./generated-photos-new/front/"
+  currentFrontArrayPic = frontPicArray[currentFrontArrayPos];
+  currentProfilePic.src = pathFront + currentFrontArrayPic;
+  currentFrontArrayPos = currentFrontArrayPos + 1;
+  console.log(currentFrontArrayPos);
+  var picsFrontRemaining = arrayFrontLength - currentFrontArrayPos;
+  console.log(picsFrontRemaining);
+  if (picsFrontRemaining == 0) {
+    console.log("there are no pictures remaining for FRONT array");
+    console.log("restarting FRONT array position!");
+    currentFrontArrayPos = 0;
+  }
+}
+
+// Array of Left-Facing Pictures
+var currentLeftArrayPos = 0;
+var currentProfilePic = document.getElementById("profileImage");
+var leftPicArray = ["cG5n.png", "cG5n (1).png", "MDcyMDAucG5n.png",
+"NDgzMTQucG5n.png", "NjQ4MjcucG5n.png", "NjQ5NzAucG5n.png", "NjU2NzYucG5n.png",
+"NjY1MjYucG5n.png", "NzMxNDIucG5n.png", "OTc5NTAucG5n.png"];
+var arrayLeftLength = 10;
+function showNextLeftProfile() {
+  console.log("LEFT profile function RUNNING");
+  pathLeft = "./generated-photos-new/left/"
+  currentLeftArrayPic = leftPicArray[currentLeftArrayPos];
+  currentProfilePic.src = pathLeft + currentLeftArrayPic;
+  currentLeftArrayPos = currentLeftArrayPos + 1;
+  console.log(currentLeftArrayPos);
+  var picsLeftRemaining = arrayLeftLength - currentLeftArrayPos;
+  console.log(picsLeftRemaining);
+  if (picsLeftRemaining == 0) {
+    console.log("there are no pictures remaining for LEFT array!");
+    console.log("restarting LEFT position!");
+    currentLeftArrayPos = 0;
+  }
+}
+
+
+// Array of Right-Facing Pictures
+var currentArrayRightPos = 0;
+var currentProfilePic = document.getElementById("profileImage");
+var rightPicArray = ["580b57fcd9996e24bc43c2f7.png", "cG5n.png", "MjA1ODgucG5n.png",
+"MjMxODMucG5n.png", "NjQ4NjAucG5n.png", "NzYxMzEucG5n.png", "ODA1OTYucG5n.png",
+"ODk4ODEucG5n.png", "OTAyMDMucG5n.png", "OTE3NzQucG5n.png"];
+var arrayRightLength = 10;
+function showNextRightProfile() {
+  console.log("RIGHT profile function RUNNING");
+  pathRight = "./generated-photos-new/right/"
+  currentRightArrayPic = rightPicArray[currentArrayRightPos];
+  currentProfilePic.src = pathRight + currentRightArrayPic;
+  currentArrayRightPos = currentArrayRightPos + 1;
+  console.log(currentArrayRightPos);
+  var picsRightRemaining = arrayRightLength - currentArrayRightPos;
+  console.log(picsRightRemaining);
+  if (picsRightRemaining == 0) {
+    console.log("there are no pictures remaining from RIGHT array!");
+    console.log("restarting RIGHT position!");
+    currentArrayRightPos = 0;
+  }
+}
+
+
+
 /*
 window.addEventListener("touchmove", preventThatDefault);
 window.addEventListener("mousedown", prefentThatDefault);
@@ -85,12 +223,15 @@ var spreadButtonVar = document.getElementById("spread");
 var coughButtonVar = document.getElementById("cough");
 coverButtonVar.addEventListener("click", function(){
   document.getElementById("lastButtonOutput").innerHTML = "COVER";
+  showNextProfile();
 });
 spreadButtonVar.addEventListener("click", function(){
   document.getElementById("lastButtonOutput").innerHTML = "SPREAD";
+  showNextProfile();
 });
 coughButtonVar.addEventListener("click", function(){
   document.getElementById("lastButtonOutput").innerHTML = "COUGH";
+  showNextProfile();
 });
 </script>
 <script type="module" src="index.js"></script>

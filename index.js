@@ -49,11 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
     target.style.transform = 'perspective(1000px) translate3d(0, -2000px, 0)';
     setTimeout(() => target.style.transform = null, 1000);
     console.log('swipeup');
+    showNextProfile();
   });
   gesture.on('swipedown', () => {
     target.style.transform = 'perspective(1000px) translate3d(0, 2000px, 0)';
     setTimeout(() => target.style.transform = null, 1000);
     console.log('swipedown');
+    showNextProfile();
   });
 
   let tapTimeout;
