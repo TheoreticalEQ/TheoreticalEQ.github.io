@@ -52,7 +52,25 @@
 </body>
 <script>
 // document.body.addEventListener('touchmove', function(e){ e.preventDefault(); });
-
+var thatMask = document.getElementById('maskImage');
+var thatProfile = document.getElementById('profileImage');
+thatMask.addEventListener("mousedown", function(event){
+  event.preventDefault();
+})
+thatMask.addEventListener("touchstart", function(event){
+  event.preventDefault();
+})
+thatProfile.addEventListener("mousedown", function(event){
+  event.preventDefault();
+})
+thatProfile.addEventListener("touchstart", function(event){
+  event.preventDefault();
+})
+/*
+thatMask.ondragstart = function() {
+  return false;
+};
+*/
 var coverButtonVar = document.getElementById("cover");
 var spreadButtonVar = document.getElementById("spread");
 var coughButtonVar = document.getElementById("cough");
