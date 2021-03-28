@@ -3,10 +3,14 @@ html, body {
   height: 100%;
   overscroll-behavior: none;
   */
+  /*
   max-height: 100% !important;
   overflow-y: hidden !important;
-
-
+  */
+  overflow-y: hidden;
+}
+body {
+  position: relative;
 }
 .tbg {
     height: 720px;

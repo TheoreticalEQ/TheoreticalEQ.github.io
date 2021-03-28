@@ -90,7 +90,7 @@ export default class TinyGesture {
   }
 
   onTouchStart (event) {
-    event.preventDefault();
+    // event.preventDefault();
     // console.log('touchstart');
     this.thresholdX = this.opts.threshold('x', this);
     // console.log('this.thresholdX: ' + this.thresholdX);
@@ -110,7 +110,7 @@ export default class TinyGesture {
   }
 
   onTouchMove (event) {
-    event.preventDefault();
+    // event.preventDefault();
     // console.log('touchmove');
     if (event.type === 'mousemove' && (!this.touchStartX || this.touchEndX !== null)) {
       return;
