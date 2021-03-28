@@ -90,6 +90,7 @@ export default class TinyGesture {
   }
 
   onTouchStart (event) {
+    event.preventDefault();
     // console.log('touchstart');
     this.thresholdX = this.opts.threshold('x', this);
     // console.log('this.thresholdX: ' + this.thresholdX);
