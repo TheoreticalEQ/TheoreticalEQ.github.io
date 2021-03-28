@@ -1,108 +1,72 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="UTF-8">
-  <!-- <link rel="stylesheet" href="style.css"> -->
-  <style>
-  body {
-    overflow: hidden;
-    overscroll-behavior: none;
-    user-select: none;
-    touch-action: none;
-  }
-  #gate {
-  cursor: pointer;
-  margin-bottom: 100px;
-  width: 83px;
-  height: 46px;
-}
-
-#ball {
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  user-select: none;
-  touch-action: none;
-}
-</style>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://kit.fontawesome.com/2f9c919c13.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
 
-  <p>Drag the ball.</p>
+<div class="tbg">
+  <div class="theader">
+    <i class="fa fa-cog" aria-hidden="true"></i>
+    <i class="fa fa-comments" aria-hidden="true"></i>
+    <div class="tlogo">
+      <img src="https://worldvectorlogo.com/logos/tinder-1.svg" alt="Tinder Logo" title="Tinder Logo" />
+    </div>
+  </div>
+  <div class="tbgwrap">
+    <div class="tphoto">
+      <img id="profileImage" src="./generated-photos-new/front/image (0).png" title="tphoto" alt="Tinder Photo" />
+      <img id="maskImage" src="./mask.png" />
+      <div class="tname">Jane Doe, <span class="age">27</span></div>
+      <!--
+      <div class="tinfo"><i class="fa fa-book" aria-hidden="true"> 0</i><i class="fa fa-users" aria-hidden="true"> 0</i></div>
+      <i class="fas fa-plane"></i>
+      <i class="fas fa-people-arrows"></i>
+      -->
+      <div class="tinfo"><i class="fas fa-plane" aria-hidden="true">2</i><i class="fas fa-people-arrows" aria-hidden="true">34</i></div>
+    </div>
+    <div class="tcontrols">
+    <!--	original no
+      <div class="tno"><i class="fa fa-times" aria-hidden="true"></i></div>
+      -->
+      <div class="tno"><i class="fas fa-head-side-mask fa-flip-horizontal" aria-hidden="true" id="cover"></i></div>
+      <!--
+      <div class="ti"><i class="fa fa-info" aria-hidden="true"></i></div>
+      <div class="ti"><i class="fas fa-biohazard" aria-hidden="true"></i></div>
+      <i class="fas fa-lungs-virus"></i>
+      -->
+      <div class="ti"><i class="fas fa-lungs-virus" aria-hidden="true" id="spread"></i></div>
+      <!--
+      <div class="tyes"><i class="fa fa-heart" aria-hidden="true"></i></div>
+      -->
+      <div class="tyes"><i class="fas fa-head-side-cough" aria-hidden="true" id="cough"></i></div>
+    </div>
+  </div>
+</div>
+<div class="debug">
+	<p id="lastButtonOutput"></p>
 
-  <img src="https://en.js.cx/clipart/soccer-gate.svg" id="gate" class="droppable">
-
-  <img src="https://en.js.cx/clipart/ball.svg" id="ball">
-
-  <script>
-    ball.onpointerstart = () => false
-    let currentDroppable = null;
-
-    // ball.onpointerdown = function(event) {
-    ball.onpointerdown = function(event) {
-      // event.preventDefault();
-      let shiftX = event.clientX - ball.getBoundingClientRect().left;
-      let shiftY = event.clientY - ball.getBoundingClientRect().top;
-
-      ball.style.position = 'absolute';
-      ball.style.zIndex = 1000;
-      document.body.append(ball);
-
-      moveAt(event.pageX, event.pageY);
-
-      function moveAt(pageX, pageY) {
-        ball.style.left = pageX - shiftX + 'px';
-        ball.style.top = pageY - shiftY + 'px';
-      }
-
-      function onMouseMove(event) {
-        // added e.preventDefault();
-        event.preventDefault();
-        moveAt(event.pageX, event.pageY);
-
-        ball.hidden = true;
-        let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
-        ball.hidden = false;
-
-        if (!elemBelow) return;
-
-        let droppableBelow = elemBelow.closest('.droppable');
-        if (currentDroppable != droppableBelow) {
-          if (currentDroppable) { // null when we were not over a droppable before this event
-            leaveDroppable(currentDroppable);
-          }
-          currentDroppable = droppableBelow;
-          if (currentDroppable) { // null if we're not coming over a droppable now
-            // (maybe just left the droppable)
-            enterDroppable(currentDroppable);
-          }
-        }
-      }
-
-      document.addEventListener('pointermove', onMouseMove);
-
-      ball.onmouseup = function() {
-        document.removeEventListener('pointermove', onMouseMove);
-        ball.onmouseup = null;
-      };
-
-    };
-
-    function enterDroppable(elem) {
-      elem.style.background = 'pink';
-    }
-
-    function leaveDroppable(elem) {
-      elem.style.background = '';
-    }
-
-    ball.onpointerstart = function() {
-      return false;
-    };
-  </script>
-
-
+</div>
 </body>
+<script>
+
+var coverButtonVar = document.getElementById("cover");
+var spreadButtonVar = document.getElementById("spread");
+var coughButtonVar = document.getElementById("cough");
+coverButtonVar.addEventListener("click", function(){
+  document.getElementById("lastButtonOutput").innerHTML = "COVER";
+});
+spreadButtonVar.addEventListener("click", function(){
+  document.getElementById("lastButtonOutput").innerHTML = "SPREAD";
+});
+coughButtonVar.addEventListener("click", function(){
+  document.getElementById("lastButtonOutput").innerHTML = "COUGH";
+});
+</script>
+<script type="module" src="index.js"></script>
+<!--
+<script src="./index.js"></script>
+-->
 </html>

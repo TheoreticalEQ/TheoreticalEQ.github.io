@@ -10,42 +10,6 @@
 export default class TinyGesture {
   constructor (element, options) {
     options = Object.assign({}, TinyGesture.defaults, options);
-      // Used to calculate the threshold to consider a movement a swipe. it is
-        // passed type of 'x' or 'y'.
-      //  threshold: (type, self) => Math.max(
-          // 25,
-        //   Math.floor(10 * (
-        //     type === 'x'
-        //       ? window.innerWidth || document.body.clientWidth
-        //       : window.innerHeight || document.body.clientHeight
-        //   ))
-        // ),
-        // Minimum velocity the gesture must be moving when the gesture ends to be
-        // considered a swipe.
-        // velocityThreshold: 100,
-        // Used to calculate the distance threshold to ignore the gestures velocity
-        // and always consider it a swipe.
-        // disregardVelocityThreshold: (type, self) => Math.floor(
-        //   0.5 * (
-        //     type === 'x'
-        //       ? self.element.clientWidth
-        //       : self.element.clientHeight
-        //   )
-        // ),
-        // Point at which the pointer moved too much to consider it a tap or longpress
-        // gesture.
-        // pressThreshold: 8,
-        // If true, swiping in a diagonal direction will fire both a horizontal and a
-        // vertical swipe.
-        // If false, whichever direction the pointer moved more will be the only swipe
-        // fired.
-        // diagonalSwipes: false,
-        // The degree limit to consider a swipe when diagonalSwipes is true.
-        // diagonalLimit: Math.tan(45 * 1.5 / 180 * Math.PI),
-        // Listen to mouse events in addition to touch events. (For desktop support.)
-        // mouseSupport: true
-      //};
-
     this.element = element;
     this.opts = options;
     this.touchStartX = null;
@@ -85,6 +49,7 @@ export default class TinyGesture {
   }
 
   destroy () {
+    // console.log('destroy');
     this.element.removeEventListener('touchstart', this._onTouchStart);
     this.element.removeEventListener('touchmove', this._onTouchMove);
     this.element.removeEventListener('touchend', this._onTouchEnd);
@@ -96,6 +61,7 @@ export default class TinyGesture {
   }
 
   on (type, fn) {
+    // console.log('on');
     if (this.handlers[type]) {
       this.handlers[type].push(fn);
       return {
@@ -107,6 +73,7 @@ export default class TinyGesture {
   }
 
   off (type, fn) {
+    // console.log('off');
     if (this.handlers[type]) {
       const idx = this.handlers[type].indexOf(fn);
       if (idx !== -1) {
@@ -116,14 +83,18 @@ export default class TinyGesture {
   }
 
   fire (type, event) {
+    // console.log('fire');
     for (let i = 0; i < this.handlers[type].length; i++) {
       this.handlers[type][i](event);
     }
   }
 
   onTouchStart (event) {
+    // console.log('touchstart');
     this.thresholdX = this.opts.threshold('x', this);
+    // console.log('this.thresholdX: ' + this.thresholdX);
     this.thresholdY = this.opts.threshold('y', this);
+    console.log('this.thresholdY: ' + this.thresholdY);
     this.disregardVelocityThresholdX = this.opts.disregardVelocityThreshold('x', this);
     this.disregardVelocityThresholdY = this.opts.disregardVelocityThreshold('y', this);
     this.touchStartX = (event.type === 'mousedown' ? event.screenX : event.changedTouches[0].screenX);
@@ -134,24 +105,29 @@ export default class TinyGesture {
     this.touchEndY = null;
     // Long press.
     this.longPressTimer = setTimeout(() => this.fire('longpress', event), this.opts.longPressTime);
-    console.log('fire panstart');
     this.fire('panstart', event);
   }
 
   onTouchMove (event) {
+    // console.log('touchmove');
     if (event.type === 'mousemove' && (!this.touchStartX || this.touchEndX !== null)) {
       return;
     }
     const touchMoveX = (event.type === 'mousemove' ? event.screenX : event.changedTouches[0].screenX) - this.touchStartX;
+    // console.log("touchMoveX: " + touchMoveX);
     this.velocityX = touchMoveX - this.touchMoveX;
     this.touchMoveX = touchMoveX;
     const touchMoveY = (event.type === 'mousemove' ? event.screenY : event.changedTouches[0].screenY) - this.touchStartY;
+    // console.log("touchMoveY: " + touchMoveY);
     this.velocityY = touchMoveY - this.touchMoveY;
+    // console.log('velocityY: ' + this.velocityY);
     this.touchMoveY = touchMoveY;
     const absTouchMoveX = Math.abs(this.touchMoveX);
     const absTouchMoveY = Math.abs(this.touchMoveY);
+    ///// console.log('absTouchMoveY: ' + absTouchMoveY);
     this.swipingHorizontal = absTouchMoveX > this.thresholdX;
     this.swipingVertical = absTouchMoveY > this.thresholdY;
+    // console.log('this.swipingVertical: ' + this.swipingVertical);
     this.swipingDirection = absTouchMoveX > absTouchMoveY
       ? (this.swipingHorizontal ? 'horizontal' : 'pre-horizontal')
       : (this.swipingVertical ? 'vertical' : 'pre-vertical');
@@ -167,7 +143,6 @@ export default class TinyGesture {
     }
     this.touchEndX = (event.type === 'mouseup' ? event.screenX : event.changedTouches[0].screenX);
     this.touchEndY = (event.type === 'mouseup' ? event.screenY : event.changedTouches[0].screenY);
-    console.log('fire panend');
     this.fire('panend', event);
     clearTimeout(this.longPressTimer);
 
@@ -193,6 +168,7 @@ export default class TinyGesture {
         }
       }
       if (this.swipedVertical) {
+        // console.log('swipedvertical');
         if (y < 0) {
           // Upward swipe.
           if (this.velocityY < -this.opts.velocityThreshold || y < -this.disregardVelocityThresholdY) {
@@ -221,9 +197,12 @@ export default class TinyGesture {
 }
 
 TinyGesture.defaults = {
+  // threshold: (type, self) => Math.max(25, Math.floor(0.15 * (type === 'x' ? window.innerWidth || document.body.clientWidth : window.innerHeight || document.body.clientHeight))),
   threshold: (type, self) => Math.max(25, Math.floor(0.15 * (type === 'x' ? window.innerWidth || document.body.clientWidth : window.innerHeight || document.body.clientHeight))),
+  // velocityThreshold: 10,
   velocityThreshold: 10,
-  disregardVelocityThreshold: (type, self) => Math.floor(0.5 * (type === 'x' ? self.element.clientWidth : self.element.clientHeight)),
+  // disregardVelocityThreshold: (type, self) => Math.floor(0.5 * (type === 'x' ? self.element.clientWidth : self.element.clientHeight)),
+  disregardVelocityThreshold: (type, self) => Math.floor(0.15 * (type === 'x' ? self.element.clientWidth : self.element.clientHeight)),
   pressThreshold: 8,
   diagonalSwipes: false,
   diagonalLimit: Math.tan(45 * 1.5 / 180 * Math.PI),
