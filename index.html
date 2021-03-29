@@ -6,11 +6,10 @@
   <script src="https://kit.fontawesome.com/2f9c919c13.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="heygirlhey"></div>
 <div class="tbg">
   <div class="theader">
     <!-- <i class="fa fa-cog" aria-hidden="true"></i> -->
-    <i class="fa fa-comments" aria-hidden="true"></i>
+    <!-- <i class="fa fa-comments" aria-hidden="true"></i> -->
     <div class="tlogo">
       <img src="https://worldvectorlogo.com/logos/tinder-1.svg" alt="Tinder Logo" title="Tinder Logo" />
     </div>
@@ -30,7 +29,7 @@
       <!-- test adding heartbeat ABOVE -->
       <!-- test of nope, superspread, yes -->
       <div class="stamp is-approved" id="is-nope">MASKED</div>
-      <div class="is-superspread" id="is-superspread">SUPER <br> SPREADER</div>
+      <div class="is-superspread" id="is-superspread">SUPER <br> SPREAD</div>
       <div class="stamp is-nope" id="is-approved">INFECT</div>
       <!--                               -->
       <img id="profileImage" src="./generated-photos-new/front/image (0).png" title="tphoto" alt="Tinder Photo" />
@@ -40,7 +39,10 @@
       <img id="maskImage" src="./Masks/mask2.png" />
       <div id="tempMaskGoesHere" id="maskImage"></div>
       <!-- <div id=backgroundColor></div> -->
-      <div class="tname">Jane Doe, <span class="age">27</span></div>
+      <!-- <div class="tname" id="profileName">Jane Doe, <span class="age" id="profileAge">27</span></div> -->
+      <div>
+        <div class="tname" id="profileName">Jane Doe, 27</div>
+      </div>
       <!--
       <div class="tinfo"><i class="fa fa-book" aria-hidden="true"> 0</i><i class="fa fa-users" aria-hidden="true"> 0</i></div>
       <i class="fas fa-plane"></i>
@@ -62,21 +64,23 @@
       <div class="ti"><i class="fas fa-biohazard" aria-hidden="true"></i></div>
       <i class="fas fa-lungs-virus"></i>
       -->
-      <div class="ti"><i class="fas fa-lungs-virus" aria-hidden="true" id="spread"></i></div>
+      <!-- <div class="ti"><i class="fas fa-lungs-virus" aria-hidden="true" id="spread"></i></div> -->
+      <div class="ti"><i class="fa fa-users" aria-hidden="true" id="spread"></i></div>
       <!-- YES SECTION
       <div class="tyes"><i class="fa fa-heart" aria-hidden="true"></i></div>
       -->
-      <div class="tyes"><i class="fas fa-head-side-cough" aria-hidden="true" id="cough"></i></div>
+      <!-- <div class="tyes"><i class="fas fa-head-side-cough" aria-hidden="true" id="cough"></i></div> -->
+      <div class="tyes"><i class="fas fa-lungs-virus" aria-hidden="true" id="cough"></i></div>
     </div>
   </div>
 </div>
 <div class="debug">
 	<p id="lastButtonOutput"></p>
-
 </div>
 </body>
 <script>
-
+// swipeUp();
+// showNextProfile();
 function swipeUp() {
   // SHOW MASK COVERING NOSE
   // <img id="profileImage" src="./generated-photos-new/front/image (0).png" title="tphoto" alt="Tinder Photo" />
@@ -92,7 +96,8 @@ function swipeUp() {
   document.getElementById("tempMaskImage").style.width = '187px';
   document.getElementById("tempMaskImage").style.position = 'absolute';
   document.getElementById("tempMaskImage").style.zIndex = 10;
-  setTimeout(() => tempMaskImage.parentNode.removeChild(tempMaskImage) = null, 1000);
+  // setTimeout(() => tempMaskImage.parentNode.removeChild(tempMaskImage) = null, 1000);
+  setTimeout(function() { tempMaskImage.parentNode.removeChild(tempMaskImage) }, 1000);
 
   // setTimeout( function(){ tempMaskImage.parentNode.removeChild(tempMaskImage) }, 10000);
  setTimeout( function(){ document.getElementById("is-nope").style.display = 'none'; }, 1000);
@@ -151,9 +156,49 @@ function showNextProfile() {
   setBackgroundColor();
   setNumFlightsTraveled();
   numClosePersonalContact();
+  // getName();
+  // getAge();
+  getNameAndAge();
   // name
   // age
 }
+
+var namePlusAge = "textstringhere";
+function getNameAndAge() {
+  getName();
+  getAge();
+  namePlusAge = currentName + ", " + randomAge.toString();
+  document.getElementById("profileName").innerHTML = namePlusAge;
+}
+
+
+// get name
+var currentNameArrayPos = 0;
+var currentName = "textaasastasdf";
+function getName() {
+  var nameArray = ["Elliot", "Quinn", "Taylor", "Angel", "Hayden", "Parker", "Adrian",
+  "Dakota", "Cameron", "Devon", "Evan", "Jesse", "Jody", "Kelsey", "Kendall",
+  "Morgan", "Robin", "Rory", "Shiloh", ]
+  currentName = nameArray[currentNameArrayPos];
+  currentNameArrayPos = currentNameArrayPos + 1;
+  if (currentNameArrayPos == 18) {
+    currentNameArrayPos = 0;
+  }
+
+  // return currentName;
+  // document.getElementById("profileName").innerHTML = currentName;
+
+}
+// get age
+var randomAge = 0;
+function getAge() {
+  randomAge = 18 + Math.floor(Math.random() * 18);
+  // return randomAge;
+  console.log("random age is: " + randomAge);
+  randomAge = randomAge.toString();
+  // document.getElementById("profileAge").innerHTML = randomAge;
+}
+
 // get flights
 var numFlightsTraveled = null;
 function setNumFlightsTraveled(){
@@ -226,12 +271,14 @@ top: 220px;
 left: 80px;
 width: 187px;
 */
-var currentFrontArrayPos = 0;
+var currentFrontArrayPos = 1;
 var currentProfilePic = document.getElementById("profileImage");
 var frontPicArray = ["image (0).png", "image (1).png", "image (2).png",
 "image (3).png", "image (4).png", "image (5).png", "image (6).png",
 "image (7).png", "image (8).png", "image (9).png"];
 var arrayFrontLength = 10;
+var pathFront = "./generated-photos-new/front/";
+var currentFrontArrayPic = "image (9).png";
 function showNextFrontProfile() {
   console.log("FRONT profile function RUNNING");
   pathFront = "./generated-photos-new/front/"
