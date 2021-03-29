@@ -12,12 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     gesture.animationFrame = window.requestAnimationFrame(() => {
       if (!gesture.swipingDirection.startsWith('pre-')) {
-        target.style.backgroundColor = '#00AA00';
+        // target.style.backgroundColor = '#00AA00';
       } else {
-        target.style.backgroundColor = bgColor;
+        // target.style.backgroundColor = bgColor;
       }
       // const zDistance = -(Math.sqrt(Math.pow(gesture.touchMoveX, 2) + Math.pow(gesture.touchMoveY, 2)))+'px';
-      target.style.transition = 'background-color ease .3s';
+      // target.style.transition = 'background-color ease .3s';
       target.style.transform = 'perspective(1000px) translate3d('+gesture.touchMoveX+'px, '+gesture.touchMoveY+'px, 0)';
       window.requestAnimationFrame(() => {
         target.style.transition = null;
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     bgColor = null;
     target.style.backgroundColor = bgColor;
   });
-
+  /*
   gesture.on('swiperight', () => {
     target.style.transform = 'perspective(1000px) translate3d(2000px, 0, 0)';
     setTimeout(() => target.style.transform = null, 1000);
@@ -45,19 +45,23 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => target.style.transform = null, 1000);
     console.log('swipeleft');
   });
+  */
+
   gesture.on('swipeup', () => {
     target.style.transform = 'perspective(1000px) translate3d(0, -2000px, 0)';
     setTimeout(() => target.style.transform = null, 1000);
-    console.log('swipeup');
-    showNextProfile();
+    // console.log('swipeup');
+    swipeUp();
+    // showNextProfile();
   });
   gesture.on('swipedown', () => {
     target.style.transform = 'perspective(1000px) translate3d(0, 2000px, 0)';
     setTimeout(() => target.style.transform = null, 1000);
-    console.log('swipedown');
-    showNextProfile();
+    // console.log('swipedown');
+    swipeDown();
+    // showNextProfile();
   });
-
+  /*
   let tapTimeout;
   gesture.on('tap', () => {
     target.style.transform = 'perspective(1000px) translate3d(0, 0, 100px)';
@@ -72,4 +76,5 @@ document.addEventListener('DOMContentLoaded', () => {
     bgColor = '#666688';
     target.style.backgroundColor = bgColor;
   });
+  */
 });

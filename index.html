@@ -18,7 +18,11 @@
   <div class="tbgwrap">
     <div class="tphoto">
       <img id="profileImage" src="./generated-photos-new/front/image (0).png" title="tphoto" alt="Tinder Photo" />
-      <img id="maskImage" src="./mask.png" />
+      <!-- <img id="maskImage" src="./mask.png" />
+      <img id="maskImage" src="./Masks/front-mask-rem-straps.png" />
+      -->
+      <img id="maskImage" src="./Masks/mask2.png" />
+      <div id="tempMaskGoesHere" id="maskImage"></div>
       <!-- <div id=backgroundColor></div> -->
       <div class="tname">Jane Doe, <span class="age">27</span></div>
       <!--
@@ -55,6 +59,42 @@
 </div>
 </body>
 <script>
+
+function swipeUp() {
+  // SHOW MASK COVERING NOSE
+  // <img id="profileImage" src="./generated-photos-new/front/image (0).png" title="tphoto" alt="Tinder Photo" />
+  //
+  var tempMaskImage = new Image();
+  tempMaskImage.src= "./Masks/mask2.png";
+  tempMaskImage.id = "tempMaskImage";
+  document.getElementById('tempMaskGoesHere').appendChild(tempMaskImage);
+  document.getElementById("tempMaskImage").style.top = '180px';
+  document.getElementById("tempMaskImage").style.left = '80px';
+  document.getElementById("tempMaskImage").style.width = '187px';
+  document.getElementById("tempMaskImage").style.position = 'absolute';
+  // setTimeout(() => tempMaskImage.parentNode.removeChild(tempMaskImage) = null, 1000);
+  setTimeout( function(){ tempMaskImage.parentNode.removeChild(tempMaskImage) }, 1000);
+  // trigger swipe up graphic
+  // BUILD
+  // console.log('swipeup');
+  // top: 180px;  front-mask.png setting to cover nose
+  // left: 80px;
+  // width: 187px;
+  // setTimeout( showNextProfile(), 1000);
+  setTimeout(function() { showNextProfile() }, 1000);
+  // showNextProfile();
+};
+function swipeDown() {
+  // trigger sweipe down graphic
+  // BUILD
+  // console.log('swipedown');
+
+  // MAKE MASK INVISIBLE
+  // showNextProfile();
+  setTimeout(function() { showNextProfile() }, 1000);
+};
+
+
 function showNextProfile() {
   chooseLRFProfilePic();
   setBackgroundColor();
@@ -63,20 +103,24 @@ function showNextProfile() {
   // name
   // age
 }
+// get flights
 var numFlightsTraveled = null;
 function setNumFlightsTraveled(){
-  numFlightsTraveled = Math.floor(Math.random() * 5);
+  numFlightsTraveled = Math.floor(Math.random() * 9);
   document.getElementById("planeTrips").innerHTML = numFlightsTraveled;
   return numFlightsTraveled;
 }
-
+// get num personal contacts
 var numClosePersonal = null;
 function numClosePersonalContact(){
-  numClosePersonal = numFlightsTraveled * 4 + Math.floor(Math.random() * 15);
+  numClosePersonal = 10 + numFlightsTraveled * 4 + Math.floor(Math.random() * 14);
   document.getElementById("closePersonalContact").innerHTML = numClosePersonal;
 }
+// get age
 
+// get name
 
+// get name and age line
 
 
 
@@ -101,7 +145,9 @@ function setBackgroundColor() {
 
 var randomNum = null;
 function chooseLRFProfilePic() {
-  randomNum = Math.floor(Math.random() * 3);
+  // testing w/ front only
+  // randomNum = Math.floor(Math.random() * 3);
+  randomNum = 0;
   console.log("random number is " + randomNum);
   if (randomNum == 0) {
     console.log("calling FRONT profile pic FUNCTION");
@@ -118,6 +164,12 @@ function chooseLRFProfilePic() {
 }
 
 // Array of Front Pictures
+/* css settings for front-mask.png
+top: 220px;
+// top: 180px;  front-mask.png setting to cover nose
+left: 80px;
+width: 187px;
+*/
 var currentFrontArrayPos = 0;
 var currentProfilePic = document.getElementById("profileImage");
 var frontPicArray = ["image (0).png", "image (1).png", "image (2).png",
@@ -128,6 +180,10 @@ function showNextFrontProfile() {
   console.log("FRONT profile function RUNNING");
   pathFront = "./generated-photos-new/front/"
   currentFrontArrayPic = frontPicArray[currentFrontArrayPos];
+  // set mask css here
+  document.getElementById("maskImage").style.top = '220px';
+  document.getElementById("maskImage").style.left = '80px';
+  document.getElementById("maskImage").style.width = '187px';
   currentProfilePic.src = pathFront + currentFrontArrayPic;
   currentFrontArrayPos = currentFrontArrayPos + 1;
   console.log(currentFrontArrayPos);
@@ -218,12 +274,15 @@ thatMask.ondragstart = function() {
   return false;
 };
 */
+
+
+// click
 var coverButtonVar = document.getElementById("cover");
 var spreadButtonVar = document.getElementById("spread");
 var coughButtonVar = document.getElementById("cough");
 coverButtonVar.addEventListener("click", function(){
   document.getElementById("lastButtonOutput").innerHTML = "COVER";
-  showNextProfile();
+  swipeUp();
 });
 spreadButtonVar.addEventListener("click", function(){
   document.getElementById("lastButtonOutput").innerHTML = "SPREAD";
@@ -231,7 +290,22 @@ spreadButtonVar.addEventListener("click", function(){
 });
 coughButtonVar.addEventListener("click", function(){
   document.getElementById("lastButtonOutput").innerHTML = "COUGH";
-  showNextProfile();
+  // SUPER SPREADER!!!
+  // showNextProfile();
+});
+// touch
+coverButtonVar.addEventListener("touchstart", function(){
+  document.getElementById("lastButtonOutput").innerHTML = "COVER";
+  swipeUp();
+});
+spreadButtonVar.addEventListener("touchstart", function(){
+  document.getElementById("lastButtonOutput").innerHTML = "SPREAD";
+  // SUPER SPREADER!!!
+  // showNextProfile();
+});
+coughButtonVar.addEventListener("touchstart", function(){
+  document.getElementById("lastButtonOutput").innerHTML = "COUGH";
+  swipeDown();
 });
 </script>
 <script type="module" src="index.js"></script>

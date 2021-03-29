@@ -72,6 +72,7 @@ body {
   background-color: #C2C2C2
 
 }
+/*
 #maskImage {
   width: 95px;
   height: auto;
@@ -79,12 +80,38 @@ body {
   display: inline;
   position: absolute;
 }
+*/
 .tphoto #maskImage {
+
+  /* css settings for front-mask.png
+  top: 220px;
+  // top: 180px;  front-mask.png setting to cover nose
+  left: 80px;
+  width: 187px;
+  */
+  /* front-mask.png settings
+  top: 151px;
+  left: 73px;
+  width: 215px;
+  */
+  display: inline;
+  position: absolute;
+  height: auto;
+  overflow: hidden;
+  display: inline;
+  position: absolute;
+  /* settings for original cartoon mask
 display: inline;
 position: absolute;
-top: 229px;
+top: 231px;
 left: 128px;
-/*
+width: 95px;
+height: auto;
+overflow: hidden;
+display: inline;
+position: absolute;
+*m
+/* finding original settings w/ cartoon mask
 width: 55px;
 height: auto;
 440 width
