@@ -17,10 +17,21 @@
   </div>
   <div class="tbgwrap">
     <div class="tphoto">
+      <!-- test adding heartbeat BELOW -->
+      <div class="superSpreaderBackground">
+        <div class="load">
+          <!-- <i class="fa fa-heartbeat fa-3x"></i> -->
+          <i class="fas fa-lungs-virus"></i>
+        </div>
+        <div>
+          <p id="superSpreaderText">There are no potential hosts around you.</p>
+        </div>
+      </div>
+      <!-- test adding heartbeat ABOVE -->
       <!-- test of nope, superspread, yes -->
       <div class="stamp is-approved" id="is-nope">MASKED</div>
       <div class="is-superspread" id="is-superspread">SUPER <br> SPREADER</div>
-      <div class="stamp is-nope" id="is-approved">SNEEZE</div>
+      <div class="stamp is-nope" id="is-approved">INFECT</div>
       <!--                               -->
       <img id="profileImage" src="./generated-photos-new/front/image (0).png" title="tphoto" alt="Tinder Photo" />
       <!-- <img id="maskImage" src="./mask.png" />
@@ -71,7 +82,8 @@ function swipeUp() {
   // <img id="profileImage" src="./generated-photos-new/front/image (0).png" title="tphoto" alt="Tinder Photo" />
   //
   var tempMaskImage = new Image();
-  document.getElementById("is-nope").style.opacity = 1;
+  /* document.getElementById("is-nope").style.opacity = 1; */
+  document.getElementById("is-nope").style.display = 'inline-block';
   tempMaskImage.src= "./Masks/mask2.png";
   tempMaskImage.id = "tempMaskImage";
   document.getElementById('tempMaskGoesHere').appendChild(tempMaskImage);
@@ -79,10 +91,11 @@ function swipeUp() {
   document.getElementById("tempMaskImage").style.left = '80px';
   document.getElementById("tempMaskImage").style.width = '187px';
   document.getElementById("tempMaskImage").style.position = 'absolute';
-  // setTimeout(() => tempMaskImage.parentNode.removeChild(tempMaskImage) = null, 1000);
+  document.getElementById("tempMaskImage").style.zIndex = 10;
+  setTimeout(() => tempMaskImage.parentNode.removeChild(tempMaskImage) = null, 1000);
 
-  setTimeout( function(){ tempMaskImage.parentNode.removeChild(tempMaskImage) }, 1000);
-  setTimeout( function(){ document.getElementById("is-nope").style.opacity = 0; }, 1000);
+  // setTimeout( function(){ tempMaskImage.parentNode.removeChild(tempMaskImage) }, 10000);
+ setTimeout( function(){ document.getElementById("is-nope").style.display = 'none'; }, 1000);
   // trigger swipe up graphic
   // BUILD
   // console.log('swipeup');
@@ -100,19 +113,36 @@ function swipeDown() {
 
   // MAKE MASK INVISIBLE
   // showNextProfile();
-  document.getElementById("is-approved").style.opacity = 1;
-  setTimeout( function(){ document.getElementById("is-approved").style.opacity = 0; }, 1000);
+  document.getElementById("is-approved").style.display = 'inline-block';
+  setTimeout( function(){ document.getElementById("is-approved").style.display = 'none'; }, 1000);
   setTimeout(function() { showNextProfile() }, 1000);
 };
 
 function superSpread() {
-  document.getElementById("is-superspread").style.opacity = 1;
-  document.getElementById("profileImage").style.opacity = 0;
+  /*
+  #superSpreaderText
+  .superSpreaderBackground
+  .load
+  */
+  document.getElementById("is-superspread").style.display = 'inline-block';
   document.getElementById("maskImage").style.opacity = 0;
-  setTimeout(function() { document.getElementById("is-superspread").style.opacity = 0; }, 5000);
-  setTimeout(function() { showNextProfile() }, 10000);
+
+  setTimeout(function() { document.getElementById("superSpreaderText").style.display = 'inline-block'}, 3000);
+  setTimeout(function() { document.getElementById("profileImage").style.opacity = 0 }, 3000);
+
+  setTimeout(function() { document.getElementById("is-superspread").style.display = 'none' }, 3000);
+
+  setTimeout(function() { document.getElementsByClassName("superSpreaderBackground")[0].style.display = 'inline-block' }, 3000);
+  setTimeout(function() { document.getElementsByClassName("load")[0].style.display = 'inline-block' }, 3000);
+
+  setTimeout(function() { document.getElementById("superSpreaderText").style.display = 'none' }, 10000);
+  setTimeout(function() { document.getElementsByClassName("superSpreaderBackground")[0].style.display = 'none' }, 10000);
+  setTimeout(function() { document.getElementsByClassName("load")[0].style.display = 'none' }, 10000);
+
   setTimeout(function() { document.getElementById("profileImage").style.opacity = 1; }, 10000);
   setTimeout(function() { document.getElementById("maskImage").style.opacity = 1; }, 10000);
+  setTimeout(function() { showNextProfile() }, 10000);
+
 }
 
 function showNextProfile() {
