@@ -17,6 +17,11 @@
   </div>
   <div class="tbgwrap">
     <div class="tphoto">
+      <!-- test of nope, superspread, yes -->
+      <div class="stamp is-approved" id="is-nope">MASKED</div>
+      <div class="is-superspread" id="is-superspread">SUPER <br> SPREADER</div>
+      <div class="stamp is-nope" id="is-approved">SNEEZE</div>
+      <!--                               -->
       <img id="profileImage" src="./generated-photos-new/front/image (0).png" title="tphoto" alt="Tinder Photo" />
       <!-- <img id="maskImage" src="./mask.png" />
       <img id="maskImage" src="./Masks/front-mask-rem-straps.png" />
@@ -66,6 +71,7 @@ function swipeUp() {
   // <img id="profileImage" src="./generated-photos-new/front/image (0).png" title="tphoto" alt="Tinder Photo" />
   //
   var tempMaskImage = new Image();
+  document.getElementById("is-nope").style.opacity = 1;
   tempMaskImage.src= "./Masks/mask2.png";
   tempMaskImage.id = "tempMaskImage";
   document.getElementById('tempMaskGoesHere').appendChild(tempMaskImage);
@@ -74,7 +80,9 @@ function swipeUp() {
   document.getElementById("tempMaskImage").style.width = '187px';
   document.getElementById("tempMaskImage").style.position = 'absolute';
   // setTimeout(() => tempMaskImage.parentNode.removeChild(tempMaskImage) = null, 1000);
+
   setTimeout( function(){ tempMaskImage.parentNode.removeChild(tempMaskImage) }, 1000);
+  setTimeout( function(){ document.getElementById("is-nope").style.opacity = 0; }, 1000);
   // trigger swipe up graphic
   // BUILD
   // console.log('swipeup');
@@ -92,11 +100,23 @@ function swipeDown() {
 
   // MAKE MASK INVISIBLE
   // showNextProfile();
+  document.getElementById("is-approved").style.opacity = 1;
+  setTimeout( function(){ document.getElementById("is-approved").style.opacity = 0; }, 1000);
   setTimeout(function() { showNextProfile() }, 1000);
 };
 
+function superSpread() {
+  document.getElementById("is-superspread").style.opacity = 1;
+  document.getElementById("profileImage").style.opacity = 0;
+  document.getElementById("maskImage").style.opacity = 0;
+  setTimeout(function() { document.getElementById("is-superspread").style.opacity = 0; }, 5000);
+  setTimeout(function() { showNextProfile() }, 10000);
+  setTimeout(function() { document.getElementById("profileImage").style.opacity = 1; }, 10000);
+  setTimeout(function() { document.getElementById("maskImage").style.opacity = 1; }, 10000);
+}
 
 function showNextProfile() {
+  document.getElementById("maskImage").style.display = 'inline';
   chooseLRFProfilePic();
   setBackgroundColor();
   setNumFlightsTraveled();
@@ -114,7 +134,7 @@ function setNumFlightsTraveled(){
 // get num personal contacts
 var numClosePersonal = null;
 function numClosePersonalContact(){
-  numClosePersonal = 10 + numFlightsTraveled * 4 + Math.floor(Math.random() * 14);
+  numClosePersonal = 10 + numFlightsTraveled * 4 + Math.floor(Math.random() * 63);
   document.getElementById("closePersonalContact").innerHTML = numClosePersonal;
 }
 // get age
@@ -125,14 +145,19 @@ function numClosePersonalContact(){
 
 
 
-var randomColNum = 666;
+// var randomColNum = 666;
+var randomColNum = 0;
 // var randomColorChoice = null;
 var targetImage = document.getElementById("profileImage").getElementsByClassName("tphoto");
 function setBackgroundColor() {
-  randomColNum = Math.floor(Math.random() * 11);
+  // randomColNum = Math.floor(Math.random() * 11);
   var arrayOfColors = ["#C2C2C2", "#F6F6F6", "#FAD6D6", "#FBDEED", "#E3D6FD", "#D5EDFE",
   "#DAF8F9", "#E1F6D7", "#F2F8DA", "#FEF7D7", "#FBE4D4"];
   var randomColorChoice = arrayOfColors[randomColNum];
+  randomColNum = randomColNum + 1;
+  if (randomColNum == 10) {
+    randomColNum = 0;
+  }
   // console.log("random number generates color: " + randomColorChoice);
   // console.log("I use # 3" + arrayOfColors[3]);
   // console.log("which should be the same as: " + arrayOfColors[3] + "but y: " + randomColorChoice);
@@ -283,6 +308,7 @@ var spreadButtonVar = document.getElementById("spread");
 var coughButtonVar = document.getElementById("cough");
 coverButtonVar.addEventListener("click", function(){
   document.getElementById("lastButtonOutput").innerHTML = "COVER";
+  document.getElementById("maskImage").style.display = 'none';
   swipeUp();
 });
 spreadButtonVar.addEventListener("click", function(){
@@ -290,23 +316,28 @@ spreadButtonVar.addEventListener("click", function(){
   // SUPER SPREADER!!!
   // showNextProfile();
   // showNextProfile();
+  superSpread();
 });
 coughButtonVar.addEventListener("click", function(){
   document.getElementById("lastButtonOutput").innerHTML = "COUGH";
+  document.getElementById("maskImage").style.display = 'none';
   swipeDown();
 });
 // touch
 coverButtonVar.addEventListener("touchstart", function(){
   document.getElementById("lastButtonOutput").innerHTML = "COVER";
+  document.getElementById("maskImage").style.display = 'none';
   swipeUp();
 });
 spreadButtonVar.addEventListener("touchstart", function(){
   document.getElementById("lastButtonOutput").innerHTML = "SPREAD";
   // SUPER SPREADER!!!
   // showNextProfile();
+  superSpread();
 });
 coughButtonVar.addEventListener("touchstart", function(){
   document.getElementById("lastButtonOutput").innerHTML = "COUGH";
+  document.getElementById("maskImage").style.display = 'none';
   swipeDown();
 });
 </script>
