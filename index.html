@@ -36,17 +36,18 @@
       </div>
     </div>
     <div class="tcontrols">
-    <!--	original no
+
+    <!--	NO SECTION
       <div class="tno"><i class="fa fa-times" aria-hidden="true"></i></div>
       -->
       <div class="tno"><i class="fas fa-head-side-mask fa-flip-horizontal" aria-hidden="true" id="cover"></i></div>
-      <!--
+      <!-- SUPER LIKE SECTION
       <div class="ti"><i class="fa fa-info" aria-hidden="true"></i></div>
       <div class="ti"><i class="fas fa-biohazard" aria-hidden="true"></i></div>
       <i class="fas fa-lungs-virus"></i>
       -->
       <div class="ti"><i class="fas fa-lungs-virus" aria-hidden="true" id="spread"></i></div>
-      <!--
+      <!-- YES SECTION
       <div class="tyes"><i class="fa fa-heart" aria-hidden="true"></i></div>
       -->
       <div class="tyes"><i class="fas fa-head-side-cough" aria-hidden="true" id="cough"></i></div>
@@ -286,12 +287,13 @@ coverButtonVar.addEventListener("click", function(){
 });
 spreadButtonVar.addEventListener("click", function(){
   document.getElementById("lastButtonOutput").innerHTML = "SPREAD";
-  showNextProfile();
+  // SUPER SPREADER!!!
+  // showNextProfile();
+  // showNextProfile();
 });
 coughButtonVar.addEventListener("click", function(){
   document.getElementById("lastButtonOutput").innerHTML = "COUGH";
-  // SUPER SPREADER!!!
-  // showNextProfile();
+  swipeDown();
 });
 // touch
 coverButtonVar.addEventListener("touchstart", function(){
